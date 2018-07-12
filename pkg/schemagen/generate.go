@@ -444,13 +444,14 @@ func (g *schemaGenerator) getStructProperties(t reflect.Type) map[string]JSONPro
 						apiGroup = pkgDesc.ApiGroup
 					}
 
-					if apiGroup != "core" {
+					if !(apiGroup == "core" || apiGroup == "meta") {
 						groupPostfix := ""
 						if strings.HasPrefix(path, "github.com/openshift/") {
 							groupPostfix = ".openshift.io"
 						}
 						apiVersion = apiGroup + groupPostfix + "/" + apiVersion
 					}
+
 					v = JSONPropertyDescriptor{
 						JSONDescriptor: &JSONDescriptor{
 							Type: "string",
